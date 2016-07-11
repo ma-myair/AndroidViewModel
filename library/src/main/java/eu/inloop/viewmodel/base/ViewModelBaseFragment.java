@@ -14,58 +14,64 @@ import eu.inloop.viewmodel.ViewModelHelper;
 public abstract class ViewModelBaseFragment<T extends IView, R extends AbstractViewModel<T>> extends Fragment implements IView {
 
     @NonNull
-    private final ViewModelHelper<T, R> mViewModeHelper = new ViewModelHelper<>();
+    private final ViewModelHelper<T, R> mViewModelHelper = new ViewModelHelper<>();
 
     @CallSuper
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModeHelper.onCreate(getActivity(), savedInstanceState, getViewModelClass(), getArguments());
+        mViewModelHelper.onCreate(getActivity(), savedInstanceState, new CreateViewModelCallback() {
+            @Override
+            public AbstractViewModel onViewModelRequested() {
+                return createViewModel();
+            }
+        }, getArguments());
     }
-
-    @Nullable
-    public abstract Class<R> getViewModelClass();
 
     /**
      * Call this after your view is ready - usually on the end of {@link Fragment#onViewCreated(View, Bundle)}
+     *
      * @param view view
      */
     protected void setModelView(@NonNull final T view) {
-        mViewModeHelper.setView(view);
+        mViewModelHelper.setView(view);
     }
+
+    @Nullable
+    public abstract R createViewModel();
 
     @CallSuper
     @Override
     public void onSaveInstanceState(@NonNull final Bundle outState) {
         super.onSaveInstanceState(outState);
-        mViewModeHelper.onSaveInstanceState(outState);
+        mViewModelHelper.onSaveInstanceState(outState);
     }
 
     @CallSuper
     @Override
     public void onStart() {
         super.onStart();
-        mViewModeHelper.onStart();
+        mViewModelHelper.onStart();
     }
 
     @CallSuper
     @Override
     public void onStop() {
         super.onStop();
-        mViewModeHelper.onStop();
+        mViewModelHelper.onStop();
     }
 
     @CallSuper
     @Override
     public void onDestroyView() {
-        mViewModeHelper.onDestroyView(this);
+        mViewModelHelper.onDestroyView(this);
         super.onDestroyView();
     }
 
     @CallSuper
     @Override
     public void onDestroy() {
-        mViewModeHelper.onDestroy(this);
+        mViewModelHelper.onDestroy(this);
         super.onDestroy();
     }
 
@@ -75,6 +81,6 @@ public abstract class ViewModelBaseFragment<T extends IView, R extends AbstractV
     @NonNull
     @SuppressWarnings("unused")
     public R getViewModel() {
-       return mViewModeHelper.getViewModel();
+        return mViewModelHelper.getViewModel();
     }
 }

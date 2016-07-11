@@ -10,6 +10,8 @@ import android.util.Log;
 
 import java.util.UUID;
 
+import eu.inloop.viewmodel.base.CreateViewModelCallback;
+
 public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
 
     @NonNull
@@ -27,19 +29,20 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
     /**
      * Call from {@link android.app.Activity#onCreate(android.os.Bundle)} or
      * {@link android.support.v4.app.Fragment#onCreate(android.os.Bundle)}
-     * @param activity parent activity
-     * @param savedInstanceState savedInstance state from {@link Activity#onCreate(Bundle)} or
-     *                           {@link Fragment#onCreate(Bundle)}
-     * @param viewModelClass the {@link Class} of your ViewModel
-     * @param arguments pass {@link Fragment#getArguments()}  or
-     *                  {@link Activity#getIntent()}.{@link Intent#getExtras() getExtras()}
+     *
+     * @param activity                parent activity
+     * @param savedInstanceState      savedInstance state from {@link Activity#onCreate(Bundle)} or
+     *                                {@link Fragment#onCreate(Bundle)}
+     * @param createViewModelCallback callback for creating viewmodel
+     * @param arguments               pass {@link Fragment#getArguments()}  or
+     *                                {@link Activity#getIntent()}.{@link Intent#getExtras() getExtras()}
      */
     public void onCreate(@NonNull Activity activity,
                          @Nullable Bundle savedInstanceState,
-                         @Nullable Class<? extends AbstractViewModel<T>> viewModelClass,
+                         @Nullable CreateViewModelCallback createViewModelCallback,
                          @Nullable Bundle arguments) {
         // no viewmodel for this fragment
-        if (viewModelClass == null) {
+        if (createViewModelCallback == null) {
             mViewModel = null;
             return;
         }
@@ -62,8 +65,8 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
         if (null == viewModelProvider) {
             throw new IllegalStateException("ViewModelProvider for activity " + activity + " was null."); //NON-NLS
         }
-        
-        final ViewModelProvider.ViewModelWrapper<T> viewModelWrapper = viewModelProvider.getViewModel(mScreenId, viewModelClass);
+
+        final ViewModelProvider.ViewModelWrapper<T> viewModelWrapper = viewModelProvider.getViewModel(mScreenId, createViewModelCallback);
         //noinspection unchecked
         mViewModel = (R) viewModelWrapper.viewModel;
 
@@ -79,6 +82,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
     /**
      * Call from {@link android.support.v4.app.Fragment#onViewCreated(android.view.View, android.os.Bundle)}
      * or {@link android.app.Activity#onCreate(android.os.Bundle)}
+     *
      * @param view view
      */
     public void setView(@NonNull final T view) {
@@ -93,6 +97,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
      * Use in case this model is associated with an {@link android.support.v4.app.Fragment}
      * Call from {@link android.support.v4.app.Fragment#onDestroyView()}. Use in case model is associated
      * with Fragment
+     *
      * @param fragment fragment
      */
     public void onDestroyView(@NonNull Fragment fragment) {
@@ -109,6 +114,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
     /**
      * Use in case this model is associated with an {@link android.support.v4.app.Fragment}
      * Call from {@link android.support.v4.app.Fragment#onDestroy()}
+     *
      * @param fragment fragment
      */
     public void onDestroy(@NonNull final Fragment fragment) {
@@ -131,6 +137,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
     /**
      * Use in case this model is associated with an {@link android.app.Activity}
      * Call from {@link android.app.Activity#onDestroy()}
+     *
      * @param activity activity
      */
     public void onDestroy(@NonNull final Activity activity) {
@@ -172,6 +179,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
      * Throws an {@link IllegalStateException} in case the ViewModel is null. This can happen
      * if you call this method too soon - before {@link Activity#onCreate(Bundle)} or {@link Fragment#onCreate(Bundle)}
      * or this {@link ViewModelHelper} is not properly setup.
+     *
      * @return {@link R}
      */
     @NonNull
@@ -186,6 +194,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
      * Call from {@link android.app.Activity#onSaveInstanceState(android.os.Bundle)}
      * or {@link android.support.v4.app.Fragment#onSaveInstanceState(android.os.Bundle)}.
      * This allows the model to save its state.
+     *
      * @param bundle bundle
      */
     public void onSaveInstanceState(@NonNull Bundle bundle) {

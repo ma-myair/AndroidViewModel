@@ -42,9 +42,10 @@ public class UserListFragment extends ViewModelBaseFragment<IUserListView, UserL
         mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, new ArrayList<String>());
     }
 
+    @Nullable
     @Override
-    public Class<UserListViewModel> getViewModelClass() {
-        return UserListViewModel.class;
+    public UserListViewModel createViewModel() {
+        return new UserListViewModel();
     }
 
 
@@ -98,7 +99,7 @@ public class UserListFragment extends ViewModelBaseFragment<IUserListView, UserL
         mAdapter.setNotifyOnChange(true);
         mAdapter.notifyDataSetChanged();
     }
-    
+
     @Override
     public void showLoading(float progress) {
         mProgressView.setVisibility(View.VISIBLE);

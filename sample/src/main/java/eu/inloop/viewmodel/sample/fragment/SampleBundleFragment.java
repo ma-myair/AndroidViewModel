@@ -2,7 +2,6 @@ package eu.inloop.viewmodel.sample.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +36,9 @@ public class SampleBundleFragment extends ViewModelBaseFragment<IView, SampleArg
         setModelView(this);
     }
 
+    @Nullable
     @Override
-    public Class<SampleArgumentViewModel> getViewModelClass() {
-        return SampleArgumentViewModel.class;
+    public SampleArgumentViewModel createViewModel() {
+        return new SampleArgumentViewModel();
     }
 }

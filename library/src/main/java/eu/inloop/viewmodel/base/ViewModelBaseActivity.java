@@ -9,7 +9,7 @@ import eu.inloop.viewmodel.AbstractViewModel;
 import eu.inloop.viewmodel.IView;
 import eu.inloop.viewmodel.ViewModelHelper;
 
-public abstract class ViewModelBaseActivity<T extends IView, R extends AbstractViewModel<T>> extends ViewModelBaseEmptyActivity implements IView  {
+public abstract class ViewModelBaseActivity<T extends IView, R extends AbstractViewModel<T>> extends ViewModelBaseEmptyActivity implements IView {
 
     @NonNull
     private final ViewModelHelper<T, R> mViewModeHelper = new ViewModelHelper<>();
@@ -18,11 +18,17 @@ public abstract class ViewModelBaseActivity<T extends IView, R extends AbstractV
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModeHelper.onCreate(this, savedInstanceState, getViewModelClass(), getIntent().getExtras());
+        mViewModeHelper.onCreate(this, savedInstanceState, new CreateViewModelCallback() {
+            @Override
+            public AbstractViewModel onViewModelRequested() {
+                return createViewModel();
+            }
+        }, getIntent().getExtras());
     }
 
     /**
      * Call this after your view is ready - usually on the end of {@link android.app.Activity#onCreate(Bundle)}
+     *
      * @param view view
      */
     @SuppressWarnings("unused")
@@ -30,8 +36,7 @@ public abstract class ViewModelBaseActivity<T extends IView, R extends AbstractV
         mViewModeHelper.setView(view);
     }
 
-    @Nullable
-    public abstract Class<R> getViewModelClass();
+    public abstract R createViewModel();
 
     @CallSuper
     @Override
@@ -69,5 +74,4 @@ public abstract class ViewModelBaseActivity<T extends IView, R extends AbstractV
     public R getViewModel() {
         return mViewModeHelper.getViewModel();
     }
-
 }

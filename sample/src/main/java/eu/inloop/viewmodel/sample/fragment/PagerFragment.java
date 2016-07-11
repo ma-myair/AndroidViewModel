@@ -2,7 +2,6 @@ package eu.inloop.viewmodel.sample.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,12 +34,13 @@ public class PagerFragment extends ViewModelBaseFragment<IPageView, PageModel> {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((TextView)view.findViewById(R.id.text)).setText(Integer.toString(getArguments().getInt("position")));
+        ((TextView) view.findViewById(R.id.text)).setText(Integer.toString(getArguments().getInt("position")));
     }
 
+    @Nullable
     @Override
-    public Class<PageModel> getViewModelClass() {
-        return PageModel.class;
+    public PageModel createViewModel() {
+        return new PageModel();
     }
 
     @Override
