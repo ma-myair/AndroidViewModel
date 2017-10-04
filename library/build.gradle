@@ -1,15 +1,15 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 26
         versionCode 1
-        versionName VERSION_NAME
+        versionName "1.0.2"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
@@ -24,34 +24,14 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
 }
 
-task androidJavadocs(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
- 
-task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-    classifier = 'javadoc'
-    from androidJavadocs.destinationDir
-}
- 
-task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
+task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
-}
- 
-artifacts {
-    archives androidSourcesJar
-    archives androidJavadocsJar
+    classifier = 'sources'
 }
 
-uploadArchives {
-    repositories.mavenDeployer {
-        pom.groupId = 'eu.inloop'
-        pom.artifactId = 'androidviewmodel'
-        pom.version = VERSION_NAME
-		repository(url: "file://${System.env.HOME}/.m2/repository")
-    }
+artifacts {
+    archives sourcesJar
 }
