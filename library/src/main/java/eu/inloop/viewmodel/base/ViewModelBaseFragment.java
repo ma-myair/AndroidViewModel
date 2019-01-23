@@ -83,4 +83,9 @@ public abstract class ViewModelBaseFragment<T extends IView, R extends AbstractV
     public R getViewModel() {
         return mViewModelHelper.getViewModel();
     }
+
+    @Override
+    public void removeViewModel() {
+        mViewModelHelper.removeViewModel(getActivity());
+    }
 }
