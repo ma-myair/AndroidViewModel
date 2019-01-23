@@ -205,7 +205,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
         }
     }
 
-    private void removeViewModel(@NonNull final Activity activity) {
+    public void removeViewModel(@NonNull final Activity activity) {
         if (mViewModel != null && !mModelRemoved) {
             final ViewModelProvider viewModelProvider = getViewModelProvider(activity).getViewModelProvider();
             if (null == viewModelProvider) {

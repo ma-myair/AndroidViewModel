@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId 'eu.inloop.viewmodel.sample'
@@ -26,9 +26,10 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
-    compile 'com.jakewharton:butterknife:5.1.2'
-    compile project(':library')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
+    implementation "com.jakewharton:butterknife:8.8.1"
+    annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
+    implementation project(':library')
 }
