@@ -124,7 +124,14 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
         }
         if (fragment.getActivity().isFinishing()) {
             removeViewModel(fragment.getActivity());
-        } else if (fragment.isRemoving() && !mOnSaveInstanceCalled) {
+            return;
+        }
+        Fragment parentFragment = fragment.getParentFragment();
+        if (parentFragment != null && parentFragment.isRemoving() && !mOnSaveInstanceCalled) {
+            removeViewModel(fragment.getActivity());
+            return;
+        }
+        if (fragment.isRemoving() && !mOnSaveInstanceCalled) {
             // The fragment can be still in backstack even if isRemoving() is true.
             // We check mOnSaveInstanceCalled - if this was not called then the fragment is totally removed.
             if (BuildConfig.DEBUG) {
