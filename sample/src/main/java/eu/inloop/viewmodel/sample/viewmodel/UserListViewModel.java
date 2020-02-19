@@ -2,12 +2,12 @@ package eu.inloop.viewmodel.sample.viewmodel;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import eu.inloop.viewmodel.AbstractViewModel;
 import eu.inloop.viewmodel.sample.viewmodel.view.IUserListView;
 

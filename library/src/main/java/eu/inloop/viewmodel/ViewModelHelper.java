@@ -3,13 +3,13 @@ package eu.inloop.viewmodel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import java.util.UUID;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import eu.inloop.viewmodel.base.CreateViewModelCallback;
 
 public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
@@ -28,7 +28,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
 
     /**
      * Call from {@link android.app.Activity#onCreate(android.os.Bundle)} or
-     * {@link android.support.v4.app.Fragment#onCreate(android.os.Bundle)}
+     * {@link Fragment#onCreate(android.os.Bundle)}
      *
      * @param activity                parent activity
      * @param savedInstanceState      savedInstance state from {@link Activity#onCreate(Bundle)} or
@@ -80,7 +80,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
     }
 
     /**
-     * Call from {@link android.support.v4.app.Fragment#onViewCreated(android.view.View, android.os.Bundle)}
+     * Call from {@link Fragment#onViewCreated(android.view.View, android.os.Bundle)}
      * or {@link android.app.Activity#onCreate(android.os.Bundle)}
      *
      * @param view view
@@ -94,8 +94,8 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
     }
 
     /**
-     * Use in case this model is associated with an {@link android.support.v4.app.Fragment}
-     * Call from {@link android.support.v4.app.Fragment#onDestroyView()}. Use in case model is associated
+     * Use in case this model is associated with an {@link Fragment}
+     * Call from {@link Fragment#onDestroyView()}. Use in case model is associated
      * with Fragment
      *
      * @param fragment fragment
@@ -112,8 +112,8 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
     }
 
     /**
-     * Use in case this model is associated with an {@link android.support.v4.app.Fragment}
-     * Call from {@link android.support.v4.app.Fragment#onDestroy()}
+     * Use in case this model is associated with an {@link Fragment}
+     * Call from {@link Fragment#onDestroy()}
      *
      * @param fragment fragment
      */
@@ -159,7 +159,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
     }
 
     /**
-     * Call from {@link android.app.Activity#onStop()} or {@link android.support.v4.app.Fragment#onStop()}
+     * Call from {@link android.app.Activity#onStop()} or {@link Fragment#onStop()}
      */
     public void onStop() {
         if (mViewModel == null) {
@@ -170,7 +170,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
     }
 
     /**
-     * Call from {@link android.app.Activity#onStart()} ()} or {@link android.support.v4.app.Fragment#onStart()} ()}
+     * Call from {@link android.app.Activity#onStart()} ()} or {@link Fragment#onStart()} ()}
      */
     public void onStart() {
         if (mViewModel == null) {
@@ -199,7 +199,7 @@ public class ViewModelHelper<T extends IView, R extends AbstractViewModel<T>> {
 
     /**
      * Call from {@link android.app.Activity#onSaveInstanceState(android.os.Bundle)}
-     * or {@link android.support.v4.app.Fragment#onSaveInstanceState(android.os.Bundle)}.
+     * or {@link Fragment#onSaveInstanceState(android.os.Bundle)}.
      * This allows the model to save its state.
      *
      * @param bundle bundle

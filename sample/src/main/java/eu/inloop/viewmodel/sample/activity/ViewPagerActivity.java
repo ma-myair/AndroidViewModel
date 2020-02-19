@@ -1,12 +1,11 @@
 package eu.inloop.viewmodel.sample.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 
-import eu.inloop.viewmodel.base.ViewModelBaseActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import eu.inloop.viewmodel.base.ViewModelBaseEmptyActivity;
 import eu.inloop.viewmodel.sample.R;
 import eu.inloop.viewmodel.sample.fragment.PagerFragment;
@@ -24,7 +23,7 @@ public class ViewPagerActivity extends ViewModelBaseEmptyActivity {
 
     private final static class TestPagerAdapter extends FragmentStatePagerAdapter {
         public TestPagerAdapter(FragmentManager fm) {
-            super(fm);
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
 
         @Override
